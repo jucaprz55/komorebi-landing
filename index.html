@@ -1,407 +1,926 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Komorebi offers curated digital wellness retreats designed to slow your heart rate, clear your mind, and restore intentional focus. A mindful sanctuary carved from code.">
-    <meta property="og:title" content="Komorebi | Mindful Digital Retreats">
-    <meta property="og:description" content="Find stillness in the noise. Curated digital spaces for mindful disconnection and intentional focus.">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <title>Komorebi | Mindful Digital Retreats</title>
+    <meta name="description" content="LUXÈ by Velour Studio — Skincare-grade cosmetics with high-performance pigments. Cruelty-free, dermatologist-tested. Available in USA & LATAM.">
+    <meta name="theme-color" content="#F2DDD5">
+    <title>LUXÈ | Redefining Everyday Luxury</title>
 
-    <!-- Critical preconnects for faster font and CDN loading -->
+    <!-- Favicon — prevents 404 request -->
+    <link rel="icon" href="data:,">
+
+    <!-- Google Fonts: non-blocking — avoids render-blocking penalty -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
-    <link rel="dns-prefetch" href="https://images.unsplash.com">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'wabi-sand': '#F4F1EA',
-                        'matcha-dust': '#A3B19B',
-                        'terracotta-warm': '#C58C73',
-                        'indigo-deep': '#2C3E50',
-                        'stone-gray': '#E5E5E5',
-                        'charcoal-ink': '#333333',
-                        'linen-light': '#FDFBF7'
-                    },
-                    fontFamily: {
-                        sans: ['"Inter"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-                    },
-                    animation: {
-                        'breathe': 'breathe 8s ease-in-out infinite',
-                        'fade-in-up': 'fadeInUp 1.5s ease-out forwards',
-                        'slow-drift': 'drift 20s linear infinite',
-                    },
-                    keyframes: {
-                        breathe: {
-                            '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
-                            '50%': { transform: 'scale(1.02)', opacity: '1' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        drift: {
-                            '0%': { transform: 'translate(0px, 0px)' },
-                            '33%': { transform: 'translate(10px, -15px)' },
-                            '66%': { transform: 'translate(-10px, 10px)' },
-                            '100%': { transform: 'translate(0px, 0px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+    </noscript>
 
     <style>
-        body {
-            background-color: #FDFBF7;
-            color: #333333;
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
+        :root {
+            --color-rosy: #F2DDD5;
+            --color-rosy-dark: #E5CFC5;
+            --color-gold: #C9A96E;
+            --color-bg: #FDFAF7;
+            --color-black: #1A1A1A;
+
+            /* System font stack fallbacks prevent FOUT */
+            --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 8rem;
+
+            --container-width: 1440px;
+            --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.3s ease;
         }
 
-        .texture-overlay {
-            position: fixed;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-black);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale; /* Firefox macOS */
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: var(--font-serif);
+            font-weight: 400;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-fast);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: var(--transition-slow);
+            border: 1px solid var(--color-black);
+        }
+
+        .btn-solid {
+            background-color: var(--color-black);
+            color: var(--color-bg);
+        }
+
+        .btn-solid:hover {
+            background-color: transparent;
+            color: var(--color-black);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-black);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-black);
+            color: var(--color-bg);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--color-rosy);
+            text-align: center;
+            padding: var(--space-xs);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(253, 250, 247, 0.95);
+            -webkit-backdrop-filter: blur(10px); /* Safari */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(26, 26, 26, 0.05);
+            padding: 1.5rem 0;
+        }
+
+        .nav-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .nav-left ul {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .nav-left a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .nav-left a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-black);
+            transition: var(--transition-fast);
+        }
+
+        .nav-left a:hover::after {
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            letter-spacing: 0.15em;
+            text-transform: lowercase;
+            text-align: center;
+        }
+
+        .nav-right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Hamburger — hidden on desktop */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background-color: var(--color-black);
+            transition: var(--transition-fast);
+        }
+
+        /* Mobile nav */
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background-color: rgba(253, 250, 247, 0.98);
+            padding: var(--space-md);
+            border-top: 1px solid rgba(26, 26, 26, 0.08);
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            padding: 0.75rem 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(26, 26, 26, 0.05);
+        }
+
+        /* Hero */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-color: var(--color-rosy);
+            overflow: hidden;
+        }
+
+        .hero-img {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            object-fit: cover;
+            opacity: 0.6;
         }
 
-        h1, h2, h3, .serif-text {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: -0.02em;
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: var(--space-md);
         }
 
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        .hero-content h1 {
+            font-size: clamp(3rem, 6vw, 6rem);
+            line-height: 1.1;
+            margin-bottom: var(--space-sm);
+            color: var(--color-black);
         }
 
-        .reveal-on-scroll.is-visible {
-            opacity: 1;
+        .hero-content h1 i {
+            font-style: italic;
+            color: var(--color-gold);
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-md);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            letter-spacing: 0.02em;
+        }
+
+        /* Marquee */
+        .marquee {
+            background-color: var(--color-black);
+            color: var(--color-bg);
+            padding: 1rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            will-change: transform; /* GPU layer for smooth animation */
+        }
+
+        .marquee-content span {
+            margin: 0 2rem;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Editorial */
+        .editorial-section {
+            padding: var(--space-xl) 0;
+        }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .editorial-block {
+            position: relative;
+        }
+
+        .img-wrap {
+            overflow: hidden;
+            background-color: var(--color-rosy-dark);
+            aspect-ratio: 4/5;
+        }
+
+        .img-wrap.portrait {
+            aspect-ratio: 3/4;
+        }
+
+        .img-wrap img {
+            width: 100%;
+            height: 100%;
+            transition: transform 1.5s ease;
+            will-change: transform;
+        }
+
+        .editorial-block:hover .img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .editorial-text {
+            padding: var(--space-md) 0;
+        }
+
+        .editorial-text--flush {
+            padding-top: 0;
+        }
+
+        .editorial-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .editorial-text p {
+            margin-bottom: var(--space-md);
+            color: #555;
+        }
+
+        /* Bestsellers */
+        .bestsellers-section {
+            padding: var(--space-xl) 0;
+            background-color: #fff;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+        }
+
+        .link-arrow {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--color-black);
+            padding-bottom: 0.25rem;
+        }
+
+        .link-arrow:hover {
+            color: var(--color-gold);
+            border-color: var(--color-gold);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .product-card {
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .product-img {
+            background-color: var(--color-bg);
+            aspect-ratio: 3/4;
+            margin-bottom: var(--space-sm);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(26,26,26,0.05);
+        }
+
+        .product-img::before {
+            content: 'Add to Bag';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background-color: rgba(253, 250, 247, 0.95);
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transform: translateY(100%);
+            transition: var(--transition-fast);
+            z-index: 2;
+        }
+
+        .product-card:hover .product-img::before {
             transform: translateY(0);
         }
 
-        .rounded-japandi {
-            border-radius: 2px;
+        .product-info h3 {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
         }
 
-        .rounded-japandi-lg {
-            border-radius: 8px;
+        .product-info .price {
+            color: var(--color-gold);
+            font-weight: 400;
         }
 
-        .blob {
+        /* Campaign Video */
+        .campaign-section {
+            padding: var(--space-md) 0 var(--space-xl);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            background-color: var(--color-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-container img {
+            opacity: 0.7;
+            transition: var(--transition-slow);
+        }
+
+        .video-container:hover img {
+            opacity: 0.5;
+            transform: scale(1.02);
+        }
+
+        .play-btn {
             position: absolute;
-            filter: blur(60px);
-            opacity: 0.4;
-            z-index: -1;
+            z-index: 10;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
+            background-color: rgba(253, 250, 247, 0.2);
+            -webkit-backdrop-filter: blur(5px); /* Safari */
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--color-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-bg);
+            transition: var(--transition-fast);
+            cursor: pointer;
         }
 
-        /* Explicit Safari backdrop-filter support */
-        #navbar {
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
+        .video-container:hover .play-btn {
+            background-color: var(--color-bg);
+            color: var(--color-black);
+            transform: scale(1.1);
         }
 
-        /* Smooth opacity transition for breathe text */
-        #breathe-text {
-            transition: opacity 0.5s ease-in-out;
+        .play-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            margin-left: 4px; /* optical alignment for play triangle */
         }
 
-        /* Respect users who prefer reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+        /* Footer */
+        footer {
+            background-color: var(--color-bg);
+            padding: var(--space-xl) 0 var(--space-md);
+            border-top: 1px solid rgba(26,26,26,0.1);
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-brand h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: var(--space-md);
+            border-bottom: 1px solid var(--color-black);
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 1rem 0;
+            border: none;
+            background: transparent;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background: transparent;
+            border: none;
+            text-transform: uppercase;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-md);
+            color: var(--color-gold);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col a {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-black);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(26,26,26,0.1);
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .footer-bottom .legal-links a {
+            margin-left: 1rem;
+            color: #999;
+        }
+
+        .footer-bottom .legal-links a:hover {
+            color: var(--color-black);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .editorial-grid, .footer-top {
+                grid-template-columns: 1fr;
             }
-            .reveal-on-scroll {
-                opacity: 1 !important;
-                transform: none !important;
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-left, .nav-right {
+                display: none;
+            }
+            .nav-container {
+                grid-template-columns: auto 1fr auto;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-links {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Reduced motion — respects OS accessibility preference */
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-content {
+                animation-play-state: paused;
+            }
+            .img-wrap img,
+            .video-container img,
+            .video-container:hover img {
+                transition: none;
+                transform: none;
             }
         }
     </style>
-
-    <!-- Show content when JS is disabled -->
-    <noscript>
-        <style>
-            .reveal-on-scroll { opacity: 1; transform: none; }
-        </style>
-    </noscript>
 </head>
-<body class="selection:bg-matcha-dust selection:text-linen-light">
-    <div class="texture-overlay" aria-hidden="true"></div>
+<body>
 
-    <header class="fixed top-0 w-full z-40 bg-linen-light/80 transition-all duration-500 ease-in-out py-6" id="navbar" role="banner">
-        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            <div class="serif-text text-xl font-medium tracking-wide text-charcoal-ink">
-                Komorebi <span class="text-matcha-dust text-sm ml-1" aria-hidden="true">木漏れ日</span>
-            </div>
-            <nav class="hidden md:flex space-x-12" aria-label="Main navigation">
-                <a href="#philosophy" class="text-sm font-light text-charcoal-ink/70 hover:text-charcoal-ink transition-colors duration-300">Philosophy</a>
-                <a href="#experience" class="text-sm font-light text-charcoal-ink/70 hover:text-charcoal-ink transition-colors duration-300">Experience</a>
-                <a href="#journey" class="text-sm font-light text-charcoal-ink/70 hover:text-charcoal-ink transition-colors duration-300">The Journey</a>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        Free express shipping on all orders over $50 | Shop USA & LATAM
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <nav class="nav-left" aria-label="Main navigation">
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Philosophy</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
             </nav>
-            <a href="#reserve" class="text-sm font-light border border-charcoal-ink/20 px-5 py-2 rounded-japandi hover:bg-charcoal-ink hover:text-linen-light transition-all duration-500">
-                Begin
-            </a>
+            <a href="/" class="logo" aria-label="velour studio — home">velour studio</a>
+            <div class="nav-right">
+                <a href="#">Search</a>
+                <a href="#">Account</a>
+                <a href="#">Bag (0)</a>
+                <button class="hamburger" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
+        <nav id="mobile-menu" class="mobile-nav" aria-label="Mobile navigation">
+            <a href="#">Shop</a>
+            <a href="#">Philosophy</a>
+            <a href="#">Journal</a>
+            <a href="#">Search</a>
+            <a href="#">Account</a>
+            <a href="#">Bag (0)</a>
+        </nav>
     </header>
 
     <main>
-        <section class="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden px-6" aria-label="Hero">
-            <div class="blob bg-wabi-sand w-96 h-96 top-20 -left-20 animate-slow-drift" aria-hidden="true"></div>
-            <div class="blob bg-matcha-dust/20 w-80 h-80 bottom-20 right-10 animate-slow-drift" style="animation-delay: -5s;" aria-hidden="true"></div>
-
-            <div class="max-w-4xl mx-auto text-center z-10 flex flex-col items-center">
-                <span class="text-matcha-dust text-xs tracking-[0.2em] uppercase mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">Digital Wellness Retreat</span>
-
-                <h1 class="text-5xl md:text-7xl font-light text-charcoal-ink leading-tight mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.5s;">
-                    Find stillness in the <br>
-                    <span class="italic text-terracotta-warm">noise</span> of the modern world.
-                </h1>
-
-                <p class="text-lg md:text-xl font-light text-charcoal-ink/70 max-w-2xl leading-relaxed mb-16 opacity-0 animate-fade-in-up" style="animation-delay: 0.8s;">
-                    Komorebi offers curated digital spaces designed to slow your heart rate, clear your mind, and restore your intentional focus. A sanctuary carved from code.
-                </p>
-
-                <div class="opacity-0 animate-fade-in-up" style="animation-delay: 1.1s;" aria-hidden="true">
-                    <div class="w-[1px] h-24 bg-gradient-to-b from-charcoal-ink/40 to-transparent mx-auto animate-breathe"></div>
-                    <div class="mt-4 text-xs font-light tracking-widest text-charcoal-ink/50 uppercase">Breathe</div>
-                </div>
+        <!-- Hero — LCP image: eager load + high fetch priority -->
+        <section class="hero">
+            <img
+                src="https://placehold.co/1920x1080/F2DDD5/1A1A1A?text=Hero+Image+Vibe"
+                alt="Accessible Luxury — velour studio"
+                class="hero-img"
+                loading="eager"
+                fetchpriority="high"
+                width="1920"
+                height="1080"
+            >
+            <div class="hero-content">
+                <h1>Redefining <i>Everyday</i> Luxury.</h1>
+                <p>Skincare-grade ingredients meet high-performance pigments. Created for the modern aesthetic.</p>
+                <a href="#" class="btn btn-solid">Explore Collection</a>
             </div>
         </section>
 
-        <section id="philosophy" class="py-32 bg-wabi-sand relative">
-            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 md:gap-24 items-center">
-                <div class="reveal-on-scroll order-2 md:order-1">
-                    <div class="relative w-full aspect-[3/4] rounded-japandi overflow-hidden group">
-                        <div class="absolute inset-0 bg-indigo-deep/10 mix-blend-multiply z-10 transition-opacity duration-700 group-hover:opacity-0" aria-hidden="true"></div>
+        <!-- Marquee — decorative, hidden from screen readers -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-content">
+                <span>Accessible Luxury</span> •
+                <span>Cruelty-Free Formulas</span> •
+                <span>High-Performance Pigments</span> •
+                <span>Dermatologist Tested</span> •
+                <span>Accessible Luxury</span> •
+                <span>Cruelty-Free Formulas</span> •
+                <span>High-Performance Pigments</span> •
+                <span>Dermatologist Tested</span>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <section class="editorial-section container" aria-label="Collections">
+            <div class="editorial-grid">
+                <div class="editorial-block">
+                    <div class="img-wrap">
                         <img
-                            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Minimalist Japandi-style interior with natural light and pale wood"
-                            class="object-cover w-full h-full scale-100 group-hover:scale-105 transition-transform duration-[2s] ease-out grayscale-[20%] sepia-[10%]"
+                            src="https://placehold.co/800x1000/E5CFC5/1A1A1A?text=Flawless+Base"
+                            alt="Flawless Base Collection"
                             loading="lazy"
                             width="800"
-                            height="1067"
-                            decoding="async">
+                            height="1000"
+                        >
+                    </div>
+                    <div class="editorial-text">
+                        <h2>The Flawless Base</h2>
+                        <p>Discover foundations and concealers that look like skin and feel like nothing. 40 inclusive shades designed to melt effortlessly.</p>
+                        <a href="#" class="btn btn-outline">Shop Face</a>
                     </div>
                 </div>
-
-                <div class="reveal-on-scroll order-1 md:order-2">
-                    <h2 class="text-3xl md:text-4xl font-light text-charcoal-ink mb-8">The Philosophy of Less.</h2>
-                    <div class="w-12 h-[1px] bg-terracotta-warm mb-8" aria-hidden="true"></div>
-                    <p class="text-base font-light text-charcoal-ink/80 leading-loose mb-6">
-                        In a landscape of constant notifications and endless scrolling, true luxury is uninterrupted focus. We draw inspiration from the quiet corners of a Nordic cabin and the mindful precision of a Japanese tea room.
-                    </p>
-                    <p class="text-base font-light text-charcoal-ink/80 leading-loose mb-10">
-                        Here, every interaction is purposeful. We strip away the non-essential to reveal a profound, grounded clarity. It is an appreciation for the imperfect, the impermanent, and the incomplete—the essence of <span class="italic text-charcoal-ink">wabi-sabi</span> applied to your digital life.
-                    </p>
-
-                    <ul class="space-y-4">
-                        <li class="flex items-center text-sm font-light text-charcoal-ink/70">
-                            <span class="w-1.5 h-1.5 rounded-full bg-matcha-dust mr-4" aria-hidden="true"></span> Intentional disconnection
-                        </li>
-                        <li class="flex items-center text-sm font-light text-charcoal-ink/70">
-                            <span class="w-1.5 h-1.5 rounded-full bg-matcha-dust mr-4" aria-hidden="true"></span> Sensory recalibration
-                        </li>
-                        <li class="flex items-center text-sm font-light text-charcoal-ink/70">
-                            <span class="w-1.5 h-1.5 rounded-full bg-matcha-dust mr-4" aria-hidden="true"></span> Guided introspection
-                        </li>
-                    </ul>
+                <div class="editorial-block">
+                    <div class="editorial-text editorial-text--flush">
+                        <h2>Signature Lips</h2>
+                        <p>From velvet mattes to hydrating satins, find your everyday signature color.</p>
+                        <a href="#" class="btn btn-outline">Shop Lips</a>
+                    </div>
+                    <div class="img-wrap portrait">
+                        <img
+                            src="https://placehold.co/600x800/DABCAE/1A1A1A?text=Signature+Lips"
+                            alt="Signature Lips Collection"
+                            loading="lazy"
+                            width="600"
+                            height="800"
+                        >
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="experience" class="py-32 relative overflow-hidden">
-            <div class="blob bg-terracotta-warm/10 w-96 h-96 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" aria-hidden="true"></div>
-
-            <div class="max-w-4xl mx-auto px-6 text-center mb-24 reveal-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-light text-charcoal-ink mb-6">Curated Spaces for the Mind.</h2>
-                <p class="text-base font-light text-charcoal-ink/70 leading-relaxed max-w-2xl mx-auto">
-                    Select a digital environment designed to cultivate a specific state of being. Like walking from a cold wind into a warm room built of pale wood.
-                </p>
-            </div>
-
-            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
-                <article class="reveal-on-scroll group cursor-pointer">
-                    <div class="aspect-square bg-wabi-sand rounded-japandi-lg p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-transparent hover:border-stone-gray">
-                        <div class="w-8 h-8 rounded-full bg-matcha-dust/20 flex items-center justify-center text-matcha-dust mb-8 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <!-- Bestsellers -->
+        <section class="bestsellers-section" aria-label="Bestsellers">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Cult Favorites</h2>
+                    <a href="#" class="link-arrow">Shop All Bestsellers &rarr;</a>
+                </div>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <div class="product-img">
+                            <img
+                                src="https://placehold.co/600x800/FDFAF7/1A1A1A?text=Product+1"
+                                alt="Luminous Silk Foundation"
+                                loading="lazy"
+                                width="600"
+                                height="800"
+                            >
                         </div>
-                        <div>
-                            <h3 class="text-xl mb-3 text-charcoal-ink group-hover:text-matcha-dust transition-colors">The Forest Bath</h3>
-                            <p class="text-sm font-light text-charcoal-ink/60 leading-relaxed">
-                                Aural landscapes of wind through pine. Visual pacing that mimics falling leaves. Designed to lower cortisol and induce calm.
-                            </p>
+                        <div class="product-info">
+                            <h3>Luminous Silk Foundation</h3>
+                            <span class="price">$42.00</span>
                         </div>
-                    </div>
-                </article>
-
-                <article class="reveal-on-scroll group cursor-pointer" style="transition-delay: 100ms;">
-                    <div class="aspect-square bg-wabi-sand rounded-japandi-lg p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-transparent hover:border-stone-gray">
-                        <div class="w-8 h-8 rounded-full bg-terracotta-warm/20 flex items-center justify-center text-terracotta-warm mb-8 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-img">
+                            <img
+                                src="https://placehold.co/600x800/FDFAF7/1A1A1A?text=Product+2"
+                                alt="Velvet Matte Lipstick"
+                                loading="lazy"
+                                width="600"
+                                height="800"
+                            >
                         </div>
-                        <div>
-                            <h3 class="text-xl mb-3 text-charcoal-ink group-hover:text-terracotta-warm transition-colors">The Tea Ceremony</h3>
-                            <p class="text-sm font-light text-charcoal-ink/60 leading-relaxed">
-                                A structured progression of micro-interactions demanding singular focus. Rebuild your attention span through deliberate action.
-                            </p>
+                        <div class="product-info">
+                            <h3>Velvet Matte Lipstick</h3>
+                            <span class="price">$28.00</span>
                         </div>
-                    </div>
-                </article>
-
-                <article class="reveal-on-scroll group cursor-pointer" style="transition-delay: 200ms;">
-                    <div class="aspect-square bg-wabi-sand rounded-japandi-lg p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-transparent hover:border-stone-gray">
-                        <div class="w-8 h-8 rounded-full bg-indigo-deep/10 flex items-center justify-center text-indigo-deep mb-8 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-img">
+                            <img
+                                src="https://placehold.co/600x800/FDFAF7/1A1A1A?text=Product+3"
+                                alt="Radiant Concealer"
+                                loading="lazy"
+                                width="600"
+                                height="800"
+                            >
                         </div>
-                        <div>
-                            <h3 class="text-xl mb-3 text-charcoal-ink group-hover:text-indigo-deep transition-colors">The Void</h3>
-                            <p class="text-sm font-light text-charcoal-ink/60 leading-relaxed">
-                                Absolute minimalism. Dark mode. A space for uncensored journaling that gently fades away, leaving no digital trace.
-                            </p>
+                        <div class="product-info">
+                            <h3>Radiant Concealer</h3>
+                            <span class="price">$26.00</span>
                         </div>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <section class="py-24 bg-stone-gray/30 border-y border-stone-gray/50" aria-label="Breathing exercise">
-            <div class="max-w-3xl mx-auto px-6 text-center reveal-on-scroll">
-                <h3 class="serif-text text-2xl text-charcoal-ink mb-12">Pause. Sync with the circle.</h3>
-
-                <div class="relative w-48 h-48 mx-auto flex items-center justify-center" role="img" aria-label="Breathing animation guide">
-                    <div class="absolute w-full h-full bg-matcha-dust/20 rounded-full animate-[breathe_8s_ease-in-out_infinite]" aria-hidden="true"></div>
-                    <div class="absolute w-3/4 h-3/4 bg-matcha-dust/40 rounded-full animate-[breathe_8s_ease-in-out_infinite]" style="animation-delay: -0.5s;" aria-hidden="true"></div>
-                    <div class="z-10 text-sm font-light text-charcoal-ink tracking-widest uppercase" id="breathe-text" aria-live="polite" aria-atomic="true">Inhale</div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section id="reserve" class="py-40 relative">
-            <div class="max-w-3xl mx-auto px-6 text-center reveal-on-scroll">
-                <span class="text-indigo-deep text-xs tracking-[0.2em] uppercase mb-6 block">Your Sanctuary Awaits</span>
-                <h2 class="text-4xl md:text-5xl font-light text-charcoal-ink mb-10 leading-tight">
-                    Step away from the stream.<br> Return to yourself.
-                </h2>
-                <p class="text-base font-light text-charcoal-ink/70 mb-14 max-w-lg mx-auto">
-                    Membership to Komorebi is limited to maintain the tranquility of our shared digital space. Reserve your quiet corner today.
-                </p>
-
-                <button
-                    type="button"
-                    class="group relative inline-flex items-center justify-center px-8 py-4 font-light text-linen-light bg-charcoal-ink rounded-japandi overflow-hidden transition-all duration-700 hover:bg-indigo-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal-ink focus-visible:ring-offset-2"
-                    aria-label="Begin the Journey — reserve your Komorebi membership">
-                    <span class="relative z-10 flex items-center tracking-wide">
-                        Begin the Journey
-                        <svg class="w-4 h-4 ml-3 transform transition-transform duration-500 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </span>
+        <!-- Campaign Video -->
+        <section class="campaign-section container" aria-label="Brand film">
+            <div class="video-container">
+                <img
+                    src="https://placehold.co/1440x800/1A1A1A/F2DDD5?text=Brand+Film+Preview"
+                    alt="Brand film preview"
+                    loading="lazy"
+                    width="1440"
+                    height="800"
+                >
+                <button class="play-btn" aria-label="Play brand video">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
                 </button>
-                <p class="text-xs font-light text-charcoal-ink/40 mt-6">A single, mindful subscription.</p>
             </div>
         </section>
     </main>
 
-    <footer class="py-12 bg-wabi-sand text-center border-t border-stone-gray" role="contentinfo">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="serif-text text-lg text-charcoal-ink mb-4 md:mb-0">
-                Komorebi <span class="text-matcha-dust text-xs ml-1" aria-hidden="true">木漏れ日</span>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2>Join the inner circle.</h2>
+                    <p>Subscribe for exclusive launches, beauty insights, and early access.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input
+                            type="email"
+                            placeholder="Email Address"
+                            required
+                            autocomplete="email"
+                            aria-label="Email address for newsletter"
+                        >
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Shop</h4>
+                        <ul>
+                            <li><a href="#">Face</a></li>
+                            <li><a href="#">Lips</a></li>
+                            <li><a href="#">Eyes</a></li>
+                            <li><a href="#">Bestsellers</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Brand</h4>
+                        <ul>
+                            <li><a href="#">Our Philosophy</a></li>
+                            <li><a href="#">Ingredients</a></li>
+                            <li><a href="#">Sustainability</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">FAQ &amp; Contact</a></li>
+                            <li><a href="#">Shipping &amp; Returns</a></li>
+                            <li><a href="#">Track Order</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-
-            <div class="text-xs font-light text-charcoal-ink/50 space-x-6">
-                <a href="#" class="hover:text-charcoal-ink transition-colors">Manifesto</a>
-                <a href="#" class="hover:text-charcoal-ink transition-colors">Privacy</a>
-                <span>© 2026 Komorebi</span>
+            <div class="footer-bottom">
+                <p>&copy; 2026 velour studio. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Throttled scroll handler using rAF — avoids scroll jank on all browsers
-            const navbar = document.getElementById('navbar');
-            let scrollTicking = false;
+        // Mobile nav toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-            window.addEventListener('scroll', () => {
-                if (!scrollTicking) {
-                    window.requestAnimationFrame(() => {
-                        if (window.scrollY > 50) {
-                            navbar.classList.add('py-4', 'shadow-sm', 'bg-linen-light/95');
-                            navbar.classList.remove('py-6', 'bg-linen-light/80');
-                        } else {
-                            navbar.classList.add('py-6', 'bg-linen-light/80');
-                            navbar.classList.remove('py-4', 'shadow-sm', 'bg-linen-light/95');
-                        }
-                        scrollTicking = false;
-                    });
-                    scrollTicking = true;
-                }
-            }, { passive: true });
+        navToggle.addEventListener('click', function () {
+            const isOpen = mobileMenu.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+        });
 
-            // IntersectionObserver with graceful fallback for older browsers
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries, obs) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { root: null, rootMargin: '0px', threshold: 0.15 });
-
-                document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-            } else {
-                document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
+        // Close mobile nav on outside click
+        document.addEventListener('click', function (e) {
+            if (!navToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
             }
+        });
 
-            // Breathing text — synchronized with the 8s CSS animation (4s per phase)
-            const breatheText = document.getElementById('breathe-text');
-            let isInhaling = true;
-
-            setInterval(() => {
-                isInhaling = !isInhaling;
-                breatheText.style.opacity = '0';
-                setTimeout(() => {
-                    breatheText.textContent = isInhaling ? 'Inhale' : 'Exhale';
-                    breatheText.style.opacity = '1';
-                }, 500);
-            }, 4000);
-
-            // Smooth scroll polyfill for anchor links (covers Safari pre-15.4)
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
+        // Newsletter — prevent default reload, hook ready for backend
+        document.getElementById('newsletter-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const input = this.querySelector('input[type="email"]');
+            const email = input.value;
+            input.value = '';
+            input.placeholder = 'Thank you — you\'re on the list!';
+            setTimeout(function () { input.placeholder = 'Email Address'; }, 3000);
         });
     </script>
+
 </body>
 </html>
