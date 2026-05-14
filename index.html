@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Komorebi offers curated digital wellness retreats designed to slow your heart rate, clear your mind, and restore intentional focus. A mindful sanctuary carved from code.">
+    <meta property="og:title" content="Komorebi | Mindful Digital Retreats">
+    <meta property="og:description" content="Find stillness in the noise. Curated digital spaces for mindful disconnection and intentional focus.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Komorebi | Mindful Digital Retreats</title>
+
+    <!-- Critical preconnects for faster font and CDN loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wabi-sand': '#F4F1EA',
+                        'matcha-dust': '#A3B19B',
+                        'terracotta-warm': '#C58C73',
+                        'indigo-deep': '#2C3E50',
+                        'stone-gray': '#E5E5E5',
+                        'charcoal-ink': '#333333',
+                        'linen-light': '#FDFBF7'
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+                    },
+                    animation: {
+                        'breathe': 'breathe 8s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 1.5s ease-out forwards',
+                        'slow-drift': 'drift 20s linear infinite',
+                    },
+                    keyframes: {
+                        breathe: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
+                            '50%': { transform: 'scale(1.02)', opacity: '1' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        drift: {
+                            '0%': { transform: 'translate(0px, 0px)' },
+                            '33%': { transform: 'translate(10px, -15px)' },
+                            '66%': { transform: 'translate(-10px, 10px)' },
+                            '100%': { transform: 'translate(0px, 0px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #333333;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3, .serif-text {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rounded-japandi {
+            border-radius: 2px;
+        }
+
+        .rounded-japandi-lg {
+            border-radius: 8px;
+        }
+
+        .blob {
+            position: absolute;
+            filter: blur(60px);
+            opacity: 0.4;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* Explicit Safari backdrop-filter support */
+        #navbar {
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Smooth opacity transition for breathe text */
+        #breathe-text {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Respect users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .reveal-on-scroll {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+    </style>
+
+    <!-- Show content when JS is disabled -->
+    <noscript>
+        <style>
+            .reveal-on-scroll { opacity: 1; transform: none; }
+        </style>
+    </noscript>
+</head>
+<body class="selection:bg-matcha-dust selection:text-linen-light">
+    <div class="texture-overlay" aria-hidden="true"></div>
+
+    <header class="fixed top-0 w-full z-40 bg-linen-light/80 transition-all duration-500 ease-in-out py-6" id="navbar" role="banner">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div class="serif-text text-xl font-medium tracking-wide text-charcoal-ink">
+                Komorebi <span class="text-matcha-dust text-sm ml-1" aria-hidden="true">木漏れ日</span>
+            </div>
+            <nav class="hidden md:flex space-x-12" aria-label="Main navigation">
+                <a href="#philosophy" class="text-sm font-light text-charcoal-ink/70 hover:text-charcoal-ink transition-colors duration-300">Philosophy</a>
+                <a href="#experience" class="text-sm font-light text-charcoal-ink/70 hover:text-charcoal-ink transition-colors duration-300">Experience</a>
+                <a href="#journey" class="text-sm font-light text-charcoal-ink/70 hover:text-charcoal-ink transition-colors duration-300">The Journey</a>
+            </nav>
+            <a href="#reserve" class="text-sm font-light border border-charcoal-ink/20 px-5 py-2 rounded-japandi hover:bg-charcoal-ink hover:text-linen-light transition-all duration-500">
+                Begin
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden px-6" aria-label="Hero">
+            <div class="blob bg-wabi-sand w-96 h-96 top-20 -left-20 animate-slow-drift" aria-hidden="true"></div>
+            <div class="blob bg-matcha-dust/20 w-80 h-80 bottom-20 right-10 animate-slow-drift" style="animation-delay: -5s;" aria-hidden="true"></div>
+
+            <div class="max-w-4xl mx-auto text-center z-10 flex flex-col items-center">
+                <span class="text-matcha-dust text-xs tracking-[0.2em] uppercase mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">Digital Wellness Retreat</span>
+
+                <h1 class="text-5xl md:text-7xl font-light text-charcoal-ink leading-tight mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.5s;">
+                    Find stillness in the <br>
+                    <span class="italic text-terracotta-warm">noise</span> of the modern world.
+                </h1>
+
+                <p class="text-lg md:text-xl font-light text-charcoal-ink/70 max-w-2xl leading-relaxed mb-16 opacity-0 animate-fade-in-up" style="animation-delay: 0.8s;">
+                    Komorebi offers curated digital spaces designed to slow your heart rate, clear your mind, and restore your intentional focus. A sanctuary carved from code.
+                </p>
+
+                <div class="opacity-0 animate-fade-in-up" style="animation-delay: 1.1s;" aria-hidden="true">
+                    <div class="w-[1px] h-24 bg-gradient-to-b from-charcoal-ink/40 to-transparent mx-auto animate-breathe"></div>
+                    <div class="mt-4 text-xs font-light tracking-widest text-charcoal-ink/50 uppercase">Breathe</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="philosophy" class="py-32 bg-wabi-sand relative">
+            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+                <div class="reveal-on-scroll order-2 md:order-1">
+                    <div class="relative w-full aspect-[3/4] rounded-japandi overflow-hidden group">
+                        <div class="absolute inset-0 bg-indigo-deep/10 mix-blend-multiply z-10 transition-opacity duration-700 group-hover:opacity-0" aria-hidden="true"></div>
+                        <img
+                            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Minimalist Japandi-style interior with natural light and pale wood"
+                            class="object-cover w-full h-full scale-100 group-hover:scale-105 transition-transform duration-[2s] ease-out grayscale-[20%] sepia-[10%]"
+                            loading="lazy"
+                            width="800"
+                            height="1067"
+                            decoding="async">
+                    </div>
+                </div>
+
+                <div class="reveal-on-scroll order-1 md:order-2">
+                    <h2 class="text-3xl md:text-4xl font-light text-charcoal-ink mb-8">The Philosophy of Less.</h2>
+                    <div class="w-12 h-[1px] bg-terracotta-warm mb-8" aria-hidden="true"></div>
+                    <p class="text-base font-light text-charcoal-ink/80 leading-loose mb-6">
+                        In a landscape of constant notifications and endless scrolling, true luxury is uninterrupted focus. We draw inspiration from the quiet corners of a Nordic cabin and the mindful precision of a Japanese tea room.
+                    </p>
+                    <p class="text-base font-light text-charcoal-ink/80 leading-loose mb-10">
+                        Here, every interaction is purposeful. We strip away the non-essential to reveal a profound, grounded clarity. It is an appreciation for the imperfect, the impermanent, and the incomplete—the essence of <span class="italic text-charcoal-ink">wabi-sabi</span> applied to your digital life.
+                    </p>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-sm font-light text-charcoal-ink/70">
+                            <span class="w-1.5 h-1.5 rounded-full bg-matcha-dust mr-4" aria-hidden="true"></span> Intentional disconnection
+                        </li>
+                        <li class="flex items-center text-sm font-light text-charcoal-ink/70">
+                            <span class="w-1.5 h-1.5 rounded-full bg-matcha-dust mr-4" aria-hidden="true"></span> Sensory recalibration
+                        </li>
+                        <li class="flex items-center text-sm font-light text-charcoal-ink/70">
+                            <span class="w-1.5 h-1.5 rounded-full bg-matcha-dust mr-4" aria-hidden="true"></span> Guided introspection
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-32 relative overflow-hidden">
+            <div class="blob bg-terracotta-warm/10 w-96 h-96 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" aria-hidden="true"></div>
+
+            <div class="max-w-4xl mx-auto px-6 text-center mb-24 reveal-on-scroll">
+                <h2 class="text-3xl md:text-4xl font-light text-charcoal-ink mb-6">Curated Spaces for the Mind.</h2>
+                <p class="text-base font-light text-charcoal-ink/70 leading-relaxed max-w-2xl mx-auto">
+                    Select a digital environment designed to cultivate a specific state of being. Like walking from a cold wind into a warm room built of pale wood.
+                </p>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+                <article class="reveal-on-scroll group cursor-pointer">
+                    <div class="aspect-square bg-wabi-sand rounded-japandi-lg p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-transparent hover:border-stone-gray">
+                        <div class="w-8 h-8 rounded-full bg-matcha-dust/20 flex items-center justify-center text-matcha-dust mb-8 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl mb-3 text-charcoal-ink group-hover:text-matcha-dust transition-colors">The Forest Bath</h3>
+                            <p class="text-sm font-light text-charcoal-ink/60 leading-relaxed">
+                                Aural landscapes of wind through pine. Visual pacing that mimics falling leaves. Designed to lower cortisol and induce calm.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal-on-scroll group cursor-pointer" style="transition-delay: 100ms;">
+                    <div class="aspect-square bg-wabi-sand rounded-japandi-lg p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-transparent hover:border-stone-gray">
+                        <div class="w-8 h-8 rounded-full bg-terracotta-warm/20 flex items-center justify-center text-terracotta-warm mb-8 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl mb-3 text-charcoal-ink group-hover:text-terracotta-warm transition-colors">The Tea Ceremony</h3>
+                            <p class="text-sm font-light text-charcoal-ink/60 leading-relaxed">
+                                A structured progression of micro-interactions demanding singular focus. Rebuild your attention span through deliberate action.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal-on-scroll group cursor-pointer" style="transition-delay: 200ms;">
+                    <div class="aspect-square bg-wabi-sand rounded-japandi-lg p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-transparent hover:border-stone-gray">
+                        <div class="w-8 h-8 rounded-full bg-indigo-deep/10 flex items-center justify-center text-indigo-deep mb-8 transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl mb-3 text-charcoal-ink group-hover:text-indigo-deep transition-colors">The Void</h3>
+                            <p class="text-sm font-light text-charcoal-ink/60 leading-relaxed">
+                                Absolute minimalism. Dark mode. A space for uncensored journaling that gently fades away, leaving no digital trace.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="py-24 bg-stone-gray/30 border-y border-stone-gray/50" aria-label="Breathing exercise">
+            <div class="max-w-3xl mx-auto px-6 text-center reveal-on-scroll">
+                <h3 class="serif-text text-2xl text-charcoal-ink mb-12">Pause. Sync with the circle.</h3>
+
+                <div class="relative w-48 h-48 mx-auto flex items-center justify-center" role="img" aria-label="Breathing animation guide">
+                    <div class="absolute w-full h-full bg-matcha-dust/20 rounded-full animate-[breathe_8s_ease-in-out_infinite]" aria-hidden="true"></div>
+                    <div class="absolute w-3/4 h-3/4 bg-matcha-dust/40 rounded-full animate-[breathe_8s_ease-in-out_infinite]" style="animation-delay: -0.5s;" aria-hidden="true"></div>
+                    <div class="z-10 text-sm font-light text-charcoal-ink tracking-widest uppercase" id="breathe-text" aria-live="polite" aria-atomic="true">Inhale</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reserve" class="py-40 relative">
+            <div class="max-w-3xl mx-auto px-6 text-center reveal-on-scroll">
+                <span class="text-indigo-deep text-xs tracking-[0.2em] uppercase mb-6 block">Your Sanctuary Awaits</span>
+                <h2 class="text-4xl md:text-5xl font-light text-charcoal-ink mb-10 leading-tight">
+                    Step away from the stream.<br> Return to yourself.
+                </h2>
+                <p class="text-base font-light text-charcoal-ink/70 mb-14 max-w-lg mx-auto">
+                    Membership to Komorebi is limited to maintain the tranquility of our shared digital space. Reserve your quiet corner today.
+                </p>
+
+                <button
+                    type="button"
+                    class="group relative inline-flex items-center justify-center px-8 py-4 font-light text-linen-light bg-charcoal-ink rounded-japandi overflow-hidden transition-all duration-700 hover:bg-indigo-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-charcoal-ink focus-visible:ring-offset-2"
+                    aria-label="Begin the Journey — reserve your Komorebi membership">
+                    <span class="relative z-10 flex items-center tracking-wide">
+                        Begin the Journey
+                        <svg class="w-4 h-4 ml-3 transform transition-transform duration-500 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </span>
+                </button>
+                <p class="text-xs font-light text-charcoal-ink/40 mt-6">A single, mindful subscription.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 bg-wabi-sand text-center border-t border-stone-gray" role="contentinfo">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="serif-text text-lg text-charcoal-ink mb-4 md:mb-0">
+                Komorebi <span class="text-matcha-dust text-xs ml-1" aria-hidden="true">木漏れ日</span>
+            </div>
+
+            <div class="text-xs font-light text-charcoal-ink/50 space-x-6">
+                <a href="#" class="hover:text-charcoal-ink transition-colors">Manifesto</a>
+                <a href="#" class="hover:text-charcoal-ink transition-colors">Privacy</a>
+                <span>© 2026 Komorebi</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Throttled scroll handler using rAF — avoids scroll jank on all browsers
+            const navbar = document.getElementById('navbar');
+            let scrollTicking = false;
+
+            window.addEventListener('scroll', () => {
+                if (!scrollTicking) {
+                    window.requestAnimationFrame(() => {
+                        if (window.scrollY > 50) {
+                            navbar.classList.add('py-4', 'shadow-sm', 'bg-linen-light/95');
+                            navbar.classList.remove('py-6', 'bg-linen-light/80');
+                        } else {
+                            navbar.classList.add('py-6', 'bg-linen-light/80');
+                            navbar.classList.remove('py-4', 'shadow-sm', 'bg-linen-light/95');
+                        }
+                        scrollTicking = false;
+                    });
+                    scrollTicking = true;
+                }
+            }, { passive: true });
+
+            // IntersectionObserver with graceful fallback for older browsers
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { root: null, rootMargin: '0px', threshold: 0.15 });
+
+                document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+            } else {
+                document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
+            }
+
+            // Breathing text — synchronized with the 8s CSS animation (4s per phase)
+            const breatheText = document.getElementById('breathe-text');
+            let isInhaling = true;
+
+            setInterval(() => {
+                isInhaling = !isInhaling;
+                breatheText.style.opacity = '0';
+                setTimeout(() => {
+                    breatheText.textContent = isInhaling ? 'Inhale' : 'Exhale';
+                    breatheText.style.opacity = '1';
+                }, 500);
+            }, 4000);
+
+            // Smooth scroll polyfill for anchor links (covers Safari pre-15.4)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
